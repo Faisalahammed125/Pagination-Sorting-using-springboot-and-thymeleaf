@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.springboot.springjpa.model.Student;
@@ -46,9 +47,14 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Page<Student> findPaginated(int PageNo, int PageSize) {
-        Pageable pageable = PageRequest.of(PageNo - 1, PageSize);
+    public Page<Student> findPaginated(int PageNo, int PageSize, String sortField, String sortDir) {
+        Sort sort;
+        if (sortDir.matches("ASC")) {
+            sort = Sort.by(sortField).ascending();
+        } else {
+            sort = Sort.by(sortField).descending();
+        }
+        Pageable pageable = PageRequest.of(PageNo - 1, PageSize, sort);
         return this.studentRepo.findAll(pageable);
     }
-
 }

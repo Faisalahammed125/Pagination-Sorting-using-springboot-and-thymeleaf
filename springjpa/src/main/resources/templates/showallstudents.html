@@ -29,12 +29,38 @@
                 <table border="2" class="table table-striped align-middle mb-1 bg-white">
                     <thead class="bg-light">
                         <tr>
-                            <th>Student ID</th>
-                            <th>Name</th>
+                            <th>
+                                Student ID
+                                <a th:href="@{'/showstudents/'+${currentPage}+'?sortField=roll&sortDir=ASC'}">
+                                    <img src="/img/up.png" alt="" style="width: 20px; height: 20px" />
+                                </a>
+                                <a th:href="@{'/showstudents/'+${currentPage}+'?sortField=roll&sortDir=DESC'}">
+                                    <img src="/img/down.png" alt="" style="width: 20px; height: 20px" />
+                                </a>
+
+                            </th>
+                            <th>
+                                Name
+                                <a th:href="@{'/showstudents/'+${currentPage}+'?sortField=name&sortDir=ASC'}">
+                                    <img src="/img/up.png" alt="" style="width: 20px; height: 20px" />
+                                </a>
+
+                                <a th:href="@{'/showstudents/'+${currentPage}+'?sortField=name&sortDir=DESC'}">
+                                    <img src="/img/down.png" alt="" style="width: 20px; height: 20px" />
+                                </a>
+                            </th>
                             <th>Mobile No</th>
                             <th>Email</th>
                             <th>Location</th>
-                            <th>CGPA</th>
+                            <th>
+                                CGPA
+                                <a th:href="@{'/showstudents/'+${currentPage}+'?sortField=cgpa&sortDir=ASC'}">
+                                    <img src="/img/up.png" alt="" style="width: 20px; height: 20px" />
+                                </a>
+                                <a th:href="@{'/showstudents/'+${currentPage}+'?sortField=cgpa&sortDir=DESC'}">
+                                    <img src="/img/down.png" alt="" style="width: 20px; height: 20px" />
+                                </a>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,15 +78,19 @@
                 <nav aria-label="Page navigation example" class="mt-2">
                     <ul class="pagination justify-content-center">
                         <li th:if="${currentPage!=1}" class="page-item"><a
-                                th:href="@{'/showstudents/'+${currentPage-1}}" class="page-link" href="#">Previous</a>
+                                th:href="@{'/showstudents/'+${currentPage-1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}}"
+                                class="page-link" href="#">Previous</a>
                         </li>
 
-                        <li th:classappend="${currentPage == i} ? 'active' : ''" th:each="i : ${#numbers.sequence(1,totalPage)}" class="page-item">
-                            <a th:href="@{'/showstudents/'+${i}}" class="page-link" href="#"><span th:text="${i}"></span></a>
+                        <li th:classappend="${currentPage == i} ? 'active' : ''"
+                            th:each="i : ${#numbers.sequence(1,totalPage)}" class="page-item">
+                            <a th:href="@{'/showstudents/'+${i}+'?sortField='+${sortField}+'&sortDir='+${sortDir}}"
+                                class="page-link" href="#"><span th:text="${i}"></span></a>
                         </li>
 
                         <li th:if="${currentPage!=totalPage}" class="page-item"><a
-                                th:href="@{'/showstudents/'+${currentPage+1}}" class="page-link" href="#">Next</a></li>
+                                th:href="@{'/showstudents/'+${currentPage+1}+'?sortField='+${sortField}+'&sortDir='+${sortDir}}"
+                                class="page-link" href="#">Next</a></li>
                     </ul>
                 </nav>
             </div>
